@@ -2,6 +2,7 @@
 module Prime
 ( primeFactors,
   isPrime,
+  primes,
 ) where
 
 floordiv a b = floor ((fromIntegral a)/(fromIntegral b))
@@ -17,3 +18,5 @@ primeFactors n = primeFactorsRec n 2 []
 
 isPrime :: Integer -> Bool
 isPrime n = length (primeFactors n) == 1
+
+primes = [p | p <- [2..], isPrime p]
