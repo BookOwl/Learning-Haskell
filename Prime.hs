@@ -4,8 +4,12 @@ module Prime
   isPrime,
   primes,
 ) where
+import Data.List
+
+divides a b = a `mod` b == 0
 
 floordiv a b = floor ((fromIntegral a)/(fromIntegral b))
+floorsqrt = floor . sqrt . fromIntegral
 
 primeFactorsRec :: Integer -> Integer -> [Integer] -> [Integer]
 primeFactorsRec n d l
@@ -17,6 +21,9 @@ primeFactors :: Integer -> [Integer]
 primeFactors n = primeFactorsRec n 2 []
 
 isPrime :: Integer -> Bool
-isPrime n = length (primeFactors n) == 1
+isPrime n
+    | n == 2    = True
+    | n < 2     = False
+    | otherwise = not $ any (divides n) (2:[3,5..(floorsqrt n)])
 
-primes = [p | p <- [2..], isPrime p]
+primes = [p | p <- 2:[3,5..], isPrime p]
